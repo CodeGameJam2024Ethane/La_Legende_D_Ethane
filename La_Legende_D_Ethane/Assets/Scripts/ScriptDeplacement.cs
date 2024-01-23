@@ -1,47 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Timeline;
 
 public class ScriptDeplacement : MonoBehaviour
 {
     public Animator animator;
-    public Boolean doubleSaut = true;
-    public Boolean canDoubleJump = true;
-    public Boolean dashPet = false;
-    public Boolean fusRohDah = false;
+    public bool doubleSaut = true;
+    public bool canDoubleJump = true;
+    public bool dash = true;
+    public bool isDashing = false;
+    public float startTime = 0.0f;
+    public bool fusRohDah = false;
+
 
     // Update is called once per frame
     void Update()
     {
+        // Pour se retourner
         float horizontal = Input.GetAxis("Horizontal");
-
-        float speed = 1;
-        animator.SetFloat("Speed", 0);
-
-        if (horizontal > 0 || horizontal < 0) 
-        {
-            animator.SetFloat("Speed", 10);
-            speed = 10;
-        }
-
-        float jump = Input.GetAxis("Jump");
-
-        if (GetComponent<Rigidbody2D>().IsTouching(GameObject.Find("Terrain").GetComponent<CompositeCollider2D>()) && jump == 0.0f) {
-            animator.SetBool("Jump", false);
-            canDoubleJump = true;
-        } 
-        else
-        {
-            animator.SetBool("Jump", true);
-        }
-
-
-        if (jump > 0 && GetComponent<Rigidbody2D>().IsTouching(GameObject.Find("Terrain").GetComponent<CompositeCollider2D>())) 
-        {
-            GetComponent<Rigidbody2D>().velocity = new Vector3(0, 10, 0);
-        } 
 
         if (horizontal > 0) 
         {
@@ -51,21 +30,75 @@ public class ScriptDeplacement : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = true;
         }
 
-        if (doubleSaut) 
+        animator.SetFloat("Speed", 0);
+
+        if (horizontal > 0 || horizontal < 0) 
         {
-            Debug.Log("Je peux double sauter");
-            if (jump > 0 && !GetComponent<Rigidbody2D>().IsTouching(GameObject.Find("Terrain").GetComponent<CompositeCollider2D>()) && canDoubleJump) 
-            {
-                GetComponent<Rigidbody2D>().velocity = new Vector3(0, 10, 0);
-                canDoubleJump = false;
-            } 
-        }
-        else 
-        {
-            Debug.Log("Je peux pas double sauter");
+            animator.SetFloat("Speed", Mathf.Abs(horizontal) * 10);
         }
 
-        transform.Translate(new Vector3(horizontal, 0, 0) * speed * Time.deltaTime);
+        if (GetComponent<Rigidbody2D>().IsTouching(GameObject.Find("Terrain").GetComponent<CompositeCollider2D>()) && !Input.GetButtonDown("Jump")) {
+            animator.SetBool("Jump", false);
+            canDoubleJump = true;
+        } 
+        else
+        {
+            animator.SetBool("Jump", true);
+        }
+
+        if (Input.GetButtonDown("Jump") && GetComponent<Rigidbody2D>().IsTouching(GameObject.Find("Terrain").GetComponent<CompositeCollider2D>())) 
+        {
+            if (!isDashing) 
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector3(0, 15, 0);
+            }
+        } 
+
+    
+        if (doubleSaut) 
+        {
+            if (Input.GetButtonDown("Jump") && !GetComponent<Rigidbody2D>().IsTouching(GameObject.Find("Terrain").GetComponent<CompositeCollider2D>()) && canDoubleJump) 
+            {
+                if (!isDashing) 
+                {
+                    GetComponent<Rigidbody2D>().velocity = new Vector3(0, 15, 0);
+                    canDoubleJump = false;
+                }
+            }
+        }
+
         
+
+        if (dash) 
+        {
+            if (Input.GetButtonDown("Dash") && !isDashing)
+            {
+                isDashing = true;
+                animator.SetBool("isDashing", true);
+                startTime = Time.time;
+            }
+
+            if (isDashing)
+            {
+                if (!GetComponent<SpriteRenderer>().flipX)
+                {
+                    transform.Translate(new Vector3(1, 0, 0) * 20 * Time.deltaTime);
+                } else {
+                    transform.Translate(new Vector3(-1, 0, 0) * 20 * Time.deltaTime);
+                }
+                
+                if (Time.time - startTime >= 0.4f)
+                {
+                    isDashing = false;
+                    animator.SetBool("isDashing", false);
+                }
+            }
+            
+        }
+
+        if (!isDashing)
+        {
+            transform.Translate(new Vector3(horizontal, 0, 0) * Mathf.Abs(horizontal) * 10 * Time.deltaTime);
+        } 
     }
 }
