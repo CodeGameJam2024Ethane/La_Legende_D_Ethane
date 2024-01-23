@@ -1969,7 +1969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1405453657}
   doubleSaut: 1
-  canDoubleJump: 1
+  canDoubleJump: 0
   dash: 1
   isDashing: 0
   startTime: 0
