@@ -80,6 +80,7 @@ public class ScriptDeplacement : MonoBehaviour
 
             if (isDashing)
             {
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
                 if (!GetComponent<SpriteRenderer>().flipX)
                 {
                     transform.Translate(new Vector3(1, 0, 0) * 20 * Time.deltaTime);
@@ -87,7 +88,7 @@ public class ScriptDeplacement : MonoBehaviour
                     transform.Translate(new Vector3(-1, 0, 0) * 20 * Time.deltaTime);
                 }
                 
-                if (Time.time - startTime >= 0.4f)
+                if (Time.time - startTime >= 0.3f)
                 {
                     isDashing = false;
                     animator.SetBool("isDashing", false);
@@ -95,7 +96,7 @@ public class ScriptDeplacement : MonoBehaviour
             }
             
         }
-
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         if (!isDashing)
         {
             transform.Translate(new Vector3(horizontal, 0, 0) * Mathf.Abs(horizontal) * 10 * Time.deltaTime);
