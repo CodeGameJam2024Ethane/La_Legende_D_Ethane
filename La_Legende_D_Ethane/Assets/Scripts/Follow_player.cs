@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class Follow_player : MonoBehaviour {
 
-    public Transform player;
+    public Transform target;
+    public Vector3 offset;
+    public float smoothTime = 0.3f;
 
-    // Update is called once per frame
-    void Update () {
-        transform.position = player.transform.position + new Vector3(0, 0, -5);
+    private Vector3 velocity;
+
+    private void LateUpdate()
+    {
+        transform.position = Vector3.SmoothDamp(transform.position, target.position + offset, ref velocity, smoothTime);
     }
 }

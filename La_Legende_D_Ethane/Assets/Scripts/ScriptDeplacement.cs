@@ -12,6 +12,7 @@ public class ScriptDeplacement : MonoBehaviour
     public bool canDoubleJump = true;
     public bool dash = true;
     public bool isDashing = false;
+    public bool canDash = true;
     public float startTime = 0.0f;
     public bool fusRohDah = false;
     public bool dialogue = false;
@@ -49,16 +50,20 @@ public class ScriptDeplacement : MonoBehaviour
         if (GetComponent<Rigidbody2D>().IsTouching(GameObject.Find("Terrain").GetComponent<CompositeCollider2D>()) && !Input.GetButtonDown("Jump")) {
             animator.SetBool("Jump", false);
             canDoubleJump = true;
+            canDash = true;
         } 
         else
         {
             animator.SetBool("Jump", true);
         }
 
+        audioSauts audio = GetComponent<audioSauts>();
+
         if (Input.GetButtonDown("Jump") && GetComponent<Rigidbody2D>().IsTouching(GameObject.Find("Terrain").GetComponent<CompositeCollider2D>())) 
         {
             if (!isDashing) 
             {
+                audio.playSound1();
                 GetComponent<Rigidbody2D>().velocity = new Vector3(0, 15, 0);
             }
         } 
@@ -70,6 +75,7 @@ public class ScriptDeplacement : MonoBehaviour
             {
                 if (!isDashing) 
                 {
+                    audio.playSound2();
                     GetComponent<Rigidbody2D>().velocity = new Vector3(0, 15, 0);
                     canDoubleJump = false;
                 }
@@ -80,11 +86,12 @@ public class ScriptDeplacement : MonoBehaviour
 
         if (dash) 
         {
-            if (Input.GetButtonDown("Dash") && !isDashing)
+            if (Input.GetButtonDown("Dash") && !isDashing && canDash)
             {
                 isDashing = true;
                 animator.SetBool("isDashing", true);
                 startTime = Time.time;
+                audio.playSound3();
             }
 
             if (isDashing)
@@ -100,6 +107,7 @@ public class ScriptDeplacement : MonoBehaviour
                 if (Time.time - startTime >= 0.3f)
                 {
                     isDashing = false;
+                    canDash = false;
                     animator.SetBool("isDashing", false);
                 }
             }
