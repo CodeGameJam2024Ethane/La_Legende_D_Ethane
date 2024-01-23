@@ -14,10 +14,19 @@ public class ScriptDeplacement : MonoBehaviour
     public bool isDashing = false;
     public float startTime = 0.0f;
     public bool fusRohDah = false;
+    public bool dialogue = false;
+
+    void Update()
+    {
+        if (!dialogue)
+        {
+            game();
+        }
+    }
 
 
     // Update is called once per frame
-    void Update()
+    void game()
     {
         // Pour se retourner
         float horizontal = Input.GetAxis("Horizontal");
