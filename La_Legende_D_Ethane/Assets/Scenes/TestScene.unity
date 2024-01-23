@@ -2436,6 +2436,7 @@ MonoBehaviour:
   canDoubleJump: 0
   dash: 1
   isDashing: 0
+  canDash: 1
   startTime: 0
   fusRohDah: 0
   dialogue: 0
@@ -2962,7 +2963,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: dbd383037c9971d4e844ec5621cced87, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
