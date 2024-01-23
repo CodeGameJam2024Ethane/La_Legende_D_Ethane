@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class ScriptDeplacement : MonoBehaviour
 {
     static float gravity = 3;
+    private AnimationTrack animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,9 +17,12 @@ public class ScriptDeplacement : MonoBehaviour
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
         float speed = 10;
 
-        transform.Translate(new Vector3(horizontal, vertical, 0) * speed * Time.deltaTime);
+        if (horizontal < 0) {
+            
+        }
+        transform.Translate(new Vector3(horizontal, 0, 0) * speed * Time.deltaTime);
+        
     }
 }
