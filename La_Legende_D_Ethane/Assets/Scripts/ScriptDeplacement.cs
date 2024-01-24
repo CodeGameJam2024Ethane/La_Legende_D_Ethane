@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public class ScriptDeplacement : MonoBehaviour
 {
@@ -22,6 +20,11 @@ public class ScriptDeplacement : MonoBehaviour
         {
             game();
         }
+    }
+
+    public void SetDialogue(bool booléen)
+    {
+        dialogue = booléen;
     }
 
 
@@ -116,6 +119,6 @@ public class ScriptDeplacement : MonoBehaviour
         if (!isDashing)
         {
             transform.Translate(new Vector3(horizontal, 0, 0) * Mathf.Abs(horizontal) * 10 * Time.deltaTime);
-        } 
+        }
     }
 }
