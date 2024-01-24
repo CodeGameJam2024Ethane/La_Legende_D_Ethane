@@ -14,7 +14,6 @@ public class ScriptDeplacement : MonoBehaviour
     public bool isDashing = false;
     public bool canDash = true;
     public float startTime = 0.0f;
-    public bool fusRohDah = false;
     public bool dialogue = false;
 
     void Update()
