@@ -1,14 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ScriptDeplacement : MonoBehaviour
 {
     public Animator animator;
-    public bool doubleSaut = true;
+    public bool doubleSaut = false;
     public bool canDoubleJump = true;
-    public bool dash = true;
+    public bool dash = false;
     public bool isDashing = false;
     public bool canDash = true;
     public float startTime = 0.0f;
@@ -25,6 +26,16 @@ public class ScriptDeplacement : MonoBehaviour
     public void SetDialogue(bool booléen)
     {
         dialogue = booléen;
+    }
+
+    public void SetDoubleJump(bool booléen)
+    {
+        doubleSaut = booléen;
+    }
+
+    public void SetDash(bool booléen)
+    {
+        dash = booléen;
     }
 
 

@@ -33240,8 +33240,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1484058424}
   doubleSaut: 1
-  canDoubleJump: 0
-  dash: 1
+  canDoubleJump: 1
+  dash: 0
   isDashing: 0
   canDash: 1
   startTime: 0
