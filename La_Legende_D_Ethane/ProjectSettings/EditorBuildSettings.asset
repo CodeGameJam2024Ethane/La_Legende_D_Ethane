@@ -15,6 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Village.unity
     guid: 014a37fd32d55a74a811f38beb401318
   - enabled: 1
+    path: Assets/Scenes/tempete.unity
+    guid: ff887c30392c7164584bbcf757cfcd25
+  - enabled: 1
+    path: Assets/Scenes/niveauFinalClouds.unity
+    guid: a9c6bf29fc9f72242afb2e424db6cef9
+  - enabled: 1
     path: Assets/Scenes/EndScreen.unity
     guid: 1a7be96e2bc19ec43b99fc82c9d0c186
   m_configObjects: {}
